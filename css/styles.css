@@ -1,0 +1,796 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-size: 16rem;
+}
+:root{
+    /*Backgrounds*/
+    --background-image: url(../assets/images/background.jpg);
+    --background-color: rgba(235, 233, 207, 0.1);
+    --background-color: rgba(235, 233, 207, 0);
+    /*Colors*/
+    --white: #FFFFFF;
+    --white-10: #ffffff1a;
+    --white-50: #ffffffa0;
+    --black: #000000;
+    --black-30: #0000006d;
+    --black-50: #0000008e;
+    --primary:#DFBC4A;
+    --primary-30:#DFBC4A4A;
+    --primary-dark:hsl(46, 70%, 48%);
+    --secondary: #DFBC4A;
+    /*Fonts*/
+    --bebas: 'Bebas Neue', sans-serif;
+    --gloria: 'Gloria Hallelujah', cursive;
+    --lato: 'Lato', sans-serif;
+    --satisfy: 'Satisfy', cursive;
+    /*Gradient*/
+    --gray: rgba(214,207,182,1);
+}
+html{
+    font-size: 6.25%;
+}
+/*Scroll bar*/
+::-webkit-scrollbar{
+    width: 6rem;
+}
+::-webkit-scrollbar-track{
+    background: var(--white-10);
+}
+::-webkit-scrollbar-thumb{
+    background: var(--primary);
+    transition: .2s;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: var(--primary-dark);
+    transition: .2s;
+}
+/*general styles*/
+body{
+    background-image: var(--background-image);
+    background-size: cover;
+    background-position: center;
+}
+hr{
+    margin: 10rem 0;
+    border: none;
+    border-bottom: solid 1rem var(--white);
+}
+/*wellcome message*/
+.wellcome{
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    place-items: center;
+}
+.message-container{
+    background-color: var(--black-30);
+    width: 30%;
+    max-width: 30%;
+    aspect-ratio: 1/1;
+    position: relative;
+    animation: openMessage 1.5s ease-in-out 1;
+}
+@keyframes openMessage {
+    0% {
+      height: 0;
+    }
+    100% {
+      height: 500rem;
+    }
+}
+.message-borders{
+    width: 100%;
+    position: absolute;
+    filter: drop-shadow(0 5rem 15rem var(--primary-30));
+    z-index: 2;
+}
+.message-borders.border-top{
+    top:  -20rem;
+}
+.message-borders.border-bottom{
+    bottom: -20rem;
+    transform: rotate(180deg);
+}
+.message{
+    width: 100%;
+    height: 100%;
+    padding: 80rem 70rem;
+    display: flex;
+    flex-direction: column;
+    gap: 16rem;
+    backdrop-filter: blur(4rem);
+    overflow-x: hidden;
+    overflow-y: scroll;
+    z-index: 1;
+    animation: appearMessage 1.5s ease-in-out 1;
+}
+@keyframes appearMessage {
+    0% {
+        height: 0;
+        display: none;
+        opacity: 0;
+    }
+    60%{
+        height: 500rem;
+        display: flex;
+        opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+}
+#message-audio{
+    display: none;
+}
+#message-player{
+    width: auto;
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 20rem;
+}
+#message-player span{
+    color: white;
+}
+#message-player-text{
+    width: 40rem;
+    height: 40rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 2px var(--white);
+    border-radius: 50%;
+}
+.message .list{
+    display: flex;
+    flex-direction: column;
+    gap: 12rem;
+}
+.message .list p{
+    display: flex;
+    gap: 20rem;
+}
+.message .list p span{
+    font-size: 20rem;
+}
+.message h1{
+    color: var(--white);
+    font-family: var(--bebas);
+    font-size: 52rem;
+}
+.message p{
+    color: var(--white);
+    font-family: var(--lato);
+    font-size: 20rem;
+    font-weight: 300;
+}
+.message p.quote{
+    width: 100%;
+    margin-top: 10px;
+    padding: 20rem;
+    font-size: 18rem;
+    text-align: center;
+    border: dashed 1rem var(--white);
+}
+.message p.sign{
+    display: flex;
+    flex-direction: column;
+}
+.message p.sign span:nth-child(1){
+    font-family: var(--satisfy);
+    font-size: 36rem;
+}
+.message p.sign span:nth-child(2){
+    font-size: 20px;
+}
+.buttons{
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+    display: flex;
+    justify-content: center;
+    gap: 20rem;
+    font-family: var(--lato);
+}
+button{
+    background: none;
+    width: 250rem;
+    height: 50rem;
+    font-size: 20rem;
+    border: solid 2rem transparent;
+}
+.primary-button, .secondary-button{
+    color: var(--white);
+    border: solid 2rem var(--white);
+    border-radius: 8rem;
+    cursor: pointer;
+    transition: .2s;
+}
+.primary-button:hover, .secondary-button:hover{
+    background-color: var(--primary);
+    border: solid 2rem var(--primary);
+    transition: .2s;
+}
+/*Comic*/
+.comic-container{
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.comic-container.unread{
+    background-color: var(--background-color-0);
+    backdrop-filter: grayscale(0%);
+}
+.comic-container.reading{
+    background-color: var(--background-color-100);
+    backdrop-filter: grayscale(90%);
+    transition: 2s;
+}
+.comic{
+    display: flex;
+    gap: 50rem;
+}
+/*comic pages*/
+.comic-page{
+    display: grid;
+    grid-template-columns: repeat(6, 160rem);
+    grid-template-rows: repeat(8, 160rem);
+    gap: 10rem;
+    position: relative;
+}
+/*comic container*/
+.box{
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    position: relative;
+    border: solid 3rem black;
+    overflow: hidden;
+    filter: grayscale(1);
+    transition: 1s;
+}
+.box-1-1{
+    grid-column: span 1;
+    grid-row: span 1;
+}
+.box-1-2{
+    grid-column: span 1;
+    grid-row: span 2;
+}
+.box-2-1{
+    grid-column: span 2;
+    grid-row: span 1;
+}
+.box-2-2{
+    grid-column: span 2;
+    grid-row: span 2;
+}
+.box-2-4{
+    grid-column: span 2;
+    grid-row: span 4;
+}
+.box-3-2{
+    grid-column: span 3;
+    grid-row: span 2;
+}
+.box-4-2{
+    grid-column: span 4;
+    grid-row: span 2;
+}
+.box:hover{
+    filter: grayscale(0);
+    transition: 1s;
+}
+#box-1{
+    background-image: url('../assets/images/box-1.png');
+}
+#box-2{
+    background-image: url('../assets/images/box-2.png');
+}
+#box-3{
+    background-image: url('../assets/images/box-3.png');
+}
+#box-4{
+    background-image: url('../assets/images/box-4.png');
+}
+#box-5{
+    background-image: url('../assets/images/box-5.png');
+}
+#box-6{
+    background-image: url('../assets/images/box-6.png');
+}
+#box-7{
+    background-image: url('../assets/images/box-7.png');
+}
+#box-8{
+    background-image: url('../assets/images/box-8.png');
+}
+#box-9{
+    background-image: url('../assets/images/box-9.png');
+}
+#box-10{
+    background-image: url('../assets/images/box-10.png');
+}
+#box-11{
+    background-image: url('../assets/images/box-11.png');
+}
+#box-12{
+    background-image: url('../assets/images/box-12.png');
+}
+#box-13{
+    background-image: url('../assets/images/box-13.png');
+}
+#box-14{
+    background-image: url('../assets/images/box-14.png');
+}
+#box-15{
+    background-image: url('../assets/images/box-15.png');
+}
+#box-16{
+    background-image: url('../assets/images/box-16.png');
+}
+.box audio{
+    display: none;
+}
+/*comic dialogues*/
+.box .dialogues{
+    width: 130%;
+    height: 100%;
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+.box .dialogues figure{
+    width: 240rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    transition: 1s;
+}
+.box .dialogues figure.left-dialogue{
+    transform: rotateZ(0);
+}
+.box .dialogues figure.right-dialogue{
+    transform: rotateZ(0);
+}
+.box .dialogues figure.top-left-dialogue{
+    top: -200rem;
+    left: -25%;
+}
+.box .dialogues figure.top-right-dialogue{
+    top: -200rem;
+    right: -25%;
+}
+.box .dialogues figure.bottom-left-dialogue{
+    bottom: -200px;
+    left: -25%;
+}
+.box .dialogues figure.bottom-right-dialogue{
+    bottom: -200px;
+    right: -25%;
+}
+.box .dialogues figure.top-left-dialogue,
+.box .dialogues figure.top-right-dialogue{
+    z-index: 2;
+}
+.box .dialogues figure.bottom-left-dialogue,
+.box .dialogues figure.bottom-right-dialogue{
+    z-index: 1;
+}
+/*Comic dialogue animations*/
+#box-1:hover .dialogues figure.top-left-dialogue{
+    top: 16%;
+    left: 10%;
+}
+#box-1:hover .dialogues figure.top-right-dialogue{
+    top: 16%;
+    right: 10%;
+}
+#box-1:hover .dialogues figure.bottom-left-dialogue{
+    bottom: -10%;
+    left: 10%;
+}
+#box-2 :hover.dialogues figure.top-left-dialogue{
+    top: 16%;
+    left: -3%;
+}
+#box-3:hover .dialogues figure.top-left-dialogue{
+    top: 31%;
+    left: 30%;
+}
+#box-4:hover .dialogues figure.top-right-dialogue{
+    top: 0%;
+    right: 24%;
+}
+#box-6:hover .dialogues figure.top-right-dialogue{
+    top: -4%;
+    right: 0%;
+}
+#box-7:hover .dialogues figure.top-left-dialogue{
+    top: 12%;
+    left: 14%;
+}
+#box-9:hover .dialogues figure.top-left-dialogue{
+    top: -5%;
+    left: 18%;
+}
+#box-9:hover .dialogues figure.top-right-dialogue{
+    top: 11%;
+    right: 7%;
+}
+#box-9:hover .dialogues figure.bottom-left-dialogue{
+    bottom: 24%;
+    left: 32%;
+}
+#box-9:hover .dialogues figure.bottom-right-dialogue{
+    bottom: 47%;
+    right: 0%;
+}
+#box-10:hover .dialogues figure.top-left-dialogue{
+    top: 5%;
+    left:9%;
+}
+#box-10:hover .dialogues figure.top-right-dialogue{
+    top: 5%;
+    right:9%;
+}
+#box-10:hover .dialogues figure.bottom-left-dialogue{
+    bottom: -6%;
+    left: 9%;
+}
+#box-10:hover .dialogues figure.bottom-right-dialogue{
+    bottom: -6%;
+    right: 9%;
+}
+#box-11:hover .dialogues figure.top-left-dialogue{
+    top: 5%;
+    left:9%;
+}
+#box-11:hover .dialogues figure.top-right-dialogue{
+    top: 5%;
+    right:9%;
+}
+#box-11:hover .dialogues figure.bottom-left-dialogue{
+    bottom: -6%;
+    left: 9%;
+}
+#box-11:hover .dialogues figure.bottom-right-dialogue{
+    bottom: -6%;
+    right: 9%;
+}
+#box-12:hover .dialogues figure.top-left-dialogue{
+    top: -4%;
+    left: 0%;
+}
+#box-13:hover .dialogues figure.top-left-dialogue{
+    top: -4%;
+    left: 0%;
+}
+#box-14:hover .dialogues figure.top-left-dialogue{
+    top: -4%;
+    left: 0%;
+}
+#box-15:hover .dialogues figure.top-left-dialogue{
+    top: 2%;
+    left: 10%;
+}
+#box-15:hover .dialogues figure.bottom-left-dialogue{
+    bottom: 0%;
+    left: 1%;
+}
+#box-15:hover .dialogues figure.top-right-dialogue{
+    top: 8%;
+    right: 0%;
+}
+#box-15:hover .dialogues figure.bottom-right-dialogue{
+    bottom: 20%;
+    right: 31%;
+}
+/*Comic dialogue images*/
+.box .dialogues figure img{
+    width: 110%;
+}
+.box .dialogues figure p{
+    width: 70%;
+    font-family: var(--gloria);
+    font-size: 13rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    line-height: 130%;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+.box .dialogues figure.top-left-dialogue p{
+    transform: translateX(-50%) translateY(-50%) rotate(2deg);
+}
+.box .dialogues figure.bottom-left-dialogue p{
+    transform: translateX(-50%) translateY(-50%) rotate(-2deg);
+}
+.box .dialogues figure.top-right-dialogue p{
+    transform: translateX(-50%) translateY(-50%) rotate(4deg);
+}
+.box .dialogues figure.bottom-right-dialogue p{
+    transform: translateX(-50%) translateY(-50%) rotate(4deg);
+}
+#popup{
+    background-color: var(--black-50);
+    width: 100%;
+    height: 100vh;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(4px);
+    z-index: 3;
+}
+#popup-image{
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 12rem;
+}
+#popup-button{
+    background-color: var(--primary);
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    font-family: var(--lato);
+    font-size: 24rem;
+    font-weight: 900;
+    border: solid 2px var(--black);
+    border-radius: 50%;
+}
+/*2560×1440*/
+@media (max-width: 2561px){
+    .message{
+        padding: 100rem 70rem;
+    }
+    .message p{
+        font-size: 24rem;
+    }
+    .message p.quote{
+        font-size: 20rem;
+    }
+    .message .list p span{
+        font-size: 24rem;
+    }
+    .message p.sign span:nth-child(1){
+        font-size: 42rem;
+    }
+    .message p.sign span:nth-child(2){
+        font-size: 24px;
+    }
+    button{
+        height: 60rem;
+        font-size: 24rem;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 130rem);
+        grid-template-rows: repeat(8, 130rem);
+    }
+    .box .dialogues figure{
+        width: 190rem;
+    }
+    .message-container{
+        width: 30%;
+        max-width: 30%;
+    }
+}
+/*1920×1080*/
+@media (max-width: 1921px){
+    .message-container{
+        width: 30%;
+        max-width: 30%;
+    }
+    .message{
+        padding: 70rem 50rem;
+    }
+    .message p{
+        font-size: 16rem;
+    }
+    .message p.quote{
+        font-size: 14rem;
+    }
+    .message .list p span{
+        font-size: 16rem;
+    }
+    .message p.sign span:nth-child(1){
+        font-size: 32rem;
+    }
+    .message p.sign span:nth-child(2){
+        font-size: 16px;
+    }
+    button{
+        height: 50rem;
+        font-size: 16rem;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 110rem);
+        grid-template-rows: repeat(8, 110rem);
+    }
+    .box .dialogues figure{
+        width: 150rem;
+    }
+    .box .dialogues figure p{
+        font-size: 9rem;
+    }
+}
+/*1600x900*/
+@media (max-width: 1601px){
+    button{
+        height: 46rem;
+        font-size: 16rem;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 80rem);
+        grid-template-rows: repeat(8, 80rem);
+    }
+    .box .dialogues figure{
+        width: 120rem;
+    }
+    .box .dialogues figure p{
+        font-size: 7rem;
+    }
+}
+/*1536×864*/
+@media (max-width: 1537px){
+    .message{
+        padding: 60rem 50rem;
+    }
+    button{
+        height: 44rem;
+        font-size: 16rem;
+    }
+    .message-container{
+        width: 30%;
+        max-width: 30%;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 60rem);
+        grid-template-rows: repeat(8, 60rem);
+    }
+    .box .dialogues figure{
+        width: 90rem;
+    }
+    .box .dialogues figure p{
+        font-size: 6rem;
+    }
+}
+/*1440×900*/
+@media (max-width: 1441px){
+    .message-container{
+        width: 40%;
+        max-width: 40%;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 60rem);
+        grid-template-rows: repeat(8, 60rem);
+    }
+    .box .dialogues figure{
+        width: 90rem;
+    }
+    .box .dialogues figure p{
+        font-size: 6rem;
+    }
+}
+/*1366x768*/
+@media (max-width: 1367px){
+    .message{
+        padding: 50rem 40rem;
+    }
+    .message p.sign span:nth-child(1){
+        font-size: 32rem;
+    }
+    .message p.sign span:nth-child(2){
+        font-size: 16px;
+    }
+    .buttons{
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+    }
+    .message-container{
+        width: 30%;
+        max-width: 30%;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 60rem);
+        grid-template-rows: repeat(8, 60rem);
+    }
+    .box .dialogues figure{
+        width: 90rem;
+    }
+    .box .dialogues figure p{
+        font-size: 6rem;
+    }
+}
+/*1280x720*/
+@media (max-width: 1281px){
+    .message-container{
+        width: 35%;
+        max-width: 35%;
+    }
+    .comic-container{
+        height: auto;
+    }
+    .comic{
+        padding: 20rem 0;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 110rem);
+        grid-template-rows: repeat(8, 110rem);
+    }
+    .box .dialogues figure{
+        width: 160rem;
+    }
+    .box .dialogues figure p{
+        font-size: 11rem;
+    }
+}
+/*810x1080*/
+@media (max-width: 811px){
+    .message-container{
+        width: 60%;
+        max-width: 60%;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 60rem);
+        grid-template-rows: repeat(8, 60rem);
+    }
+    .box .dialogues figure{
+        width: 70rem;
+    }
+    .box .dialogues figure p{
+        font-size: 4rem;
+    }
+}
+/*415×844*/
+@media (max-width: 416px){
+    .message-container{
+        width: 90vw;
+        max-width: 90vw;
+        height: 90vw;
+        max-height: 90vw;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 45rem);
+        grid-template-rows: repeat(8, 45rem);
+    }
+    .box .dialogues figure{
+        width: 70rem;
+    }
+    .box .dialogues figure p{
+        font-size: 4rem;
+    }
+}
+/*360x800*/
+@media (max-width: 361px){
+    .message-container{
+        width: 90vw;
+        max-width: 90vw;
+        height: 90vw;
+        max-height: 90vw;
+    }
+    .comic-page{
+        grid-template-columns: repeat(6, 45rem);
+        grid-template-rows: repeat(8, 45rem);
+    }
+    .box .dialogues figure{
+        width: 70rem;
+    }
+    .box .dialogues figure p{
+        font-size: 4rem;
+    }
+}
